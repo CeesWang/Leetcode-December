@@ -1,0 +1,33 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int [][] spiralArr = new int[n][n];
+        int squared = n * n;
+        int num = 1;
+        int right = n - 1;
+        int bottom = n - 1;
+        int left = 0;
+        int top = 0;
+        while (num <= squared) {
+            for (int i = left; i <= right; i++) {
+                spiralArr[top][i] = num++; // fill top row
+            } 
+            top++;
+
+            for (int i = top; i <= bottom; i++) {
+                spiralArr[i][right] = num++; // fill right column
+            }
+            right--;
+
+            for (int i = right; i >= left; i--) {
+                spiralArr[bottom][i] = num++; // fill bottom raw
+            }
+            bottom--;
+
+            for (int i = bottom; i >= top; i--) {
+                spiralArr[i][left] = num++; // fill right column
+            }
+            left++;
+        }
+        return spiralArr;
+    }
+}
