@@ -33,3 +33,24 @@ class Solution {
         return ans;
     }
 }
+
+class Solution {
+    public int numPairsDivisibleBy60(int[] time) {
+        int ans = 0;
+        int [] remArr = new int[61];
+        for (int t : time) {
+            int rem = t % 60;
+            int complement = 60 - rem;
+            if (rem == 0) { // edge case when remainder = 0;
+                if (remArr[rem] > 0) {
+                    ans += remArr[rem];      
+                }     
+            }
+            if (remArr[complement] > 0) {
+                ans += remArr[complement];
+            }
+            remArr[rem]++;
+        }
+        return ans;
+    }
+}
