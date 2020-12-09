@@ -11,3 +11,25 @@ class Solution {
         return ans;
     }
 }
+
+class Solution {
+    public int numPairsDivisibleBy60(int[] time) {
+        int ans = 0;
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int t : time) {
+            int rem = t % 60;
+            int complement = 60 - rem;
+            if (rem == 0) { // edge case when remainder = 0;
+                if (freqMap.containsKey(rem)) {
+                    ans += freqMap.get(rem);      
+                }     
+            }
+            if (freqMap.containsKey(complement)) {
+                
+                ans += freqMap.get(complement);
+            }
+            freqMap.put(rem, freqMap.getOrDefault(rem, 0) + 1);
+        }
+        return ans;
+    }
+}
