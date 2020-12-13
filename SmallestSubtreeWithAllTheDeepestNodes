@@ -14,36 +14,22 @@
  * }
  */
 class Solution {
-    TreeNode deepestNode;
+    TreeNode deepestNode = null;
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        deepestNode = root;
-        int [] maxDepth = new int[1];
-        maxDepth[0] = findHeight(root);
-        dfs(root, 1, maxDepth);
+        int [] maxHeight = new int [1];
+        dfs(root, 1, maxHeight);
         return deepestNode;
     }
-    public void dfs(TreeNode node, int depth, int [] maxDepth) {
+    public int dfs(TreeNode node, int height, int [] maxHeight) {
         if (node == null) {
-            return;
+            return height;
         }
-        if (maxDepth[0] - 1 == depth) {
-            if (node.left != null && node.right != null) { 
-                deepestNode = node;
-            }
-            else if (node.left != null || node.right != null) {
-                deepestNode = node.left == null ? node.right : node.left;
-            }
+        int leftHeight = dfs(node.left, height + 1, maxHeight);
+        int rightHeight = dfs(node.right, height + 1, maxHeight);
+        if (leftHeight == rightHeight && maxHeight[0] <= leftHeight) {
+            maxHeight[0] = leftHeight;
+            deepestNode = node;
         }
-        else {
-            dfs(node.left, depth + 1, maxDepth);
-            dfs(node.right, depth + 1, maxDepth);
-        }
-    }
-    
-    public int findHeight (TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        return 1 + Math.max(findHeight(root.left), findHeight(root.right));
+        return Math.max(leftHeight, rightHeight);
     }
 }
