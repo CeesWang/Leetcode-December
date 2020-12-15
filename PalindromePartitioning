@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> list = new ArrayList<>();
+        dfs(s.toCharArray(), 0, list, new ArrayList<String>());    
+        return list;
+    }
+    public void dfs(char [] arr, int idx, List<List<String>> list, ArrayList<String> permutation) {
+        if (idx == arr.length) {
+            list.add(new ArrayList<>(permutation));
+            return;
+        }
+        for (int i = idx; i < arr.length; ++i) {
+            if (isPalindrome(idx, i, arr)) {
+                permutation.add(new String(arr, idx, i - idx + 1));
+                dfs(arr, i + 1, list, permutation);
+                permutation.remove(permutation.size() - 1);
+            }
+        }
+    }
+    
+    public boolean isPalindrome(int begin, int end, char [] arr) {
+        while (begin < end) {
+            if (arr[begin++] != arr[end--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // abagfg
+    
+}
