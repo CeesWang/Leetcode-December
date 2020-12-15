@@ -1,0 +1,24 @@
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        Stack<Integer> stack = new Stack<>();
+        int left = 0;
+        int right = nums.length - 1;
+        while (right >= 0 && left < nums.length && left <= right) {
+            int sq1 = (nums[left] * nums[left]);
+            int sq2 = (nums[right] * nums[right]);
+            if (sq1 > sq2) {
+                ++left;
+                stack.push(sq1);
+            }
+            else {
+                --right;
+                stack.push(sq2);
+            }
+        }
+        int [] sortedSquareArr = new int [nums.length];
+        for (int i = 0; i < nums.length; ++i) {
+            sortedSquareArr[i] = stack.pop();
+        }
+        return sortedSquareArr;
+    }
+}
