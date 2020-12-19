@@ -19,3 +19,35 @@ class Solution {
         // return i < j  && j < k;
     }
 }
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        Integer first = nums[0];
+        Integer second = null;
+        Integer last = null;
+        for (int i = 1; i < nums.length; ++i) {
+            if (last != null && nums[i] > last) return true;
+            if (nums[i] <= first) {
+                if (second != null) {
+                    last = last == null ? second : Math.min(last, second);
+                }
+                first = nums[i];
+                second = null;
+            }
+            else if (second == null && nums[i] > first) {
+                second = nums[i];
+            }
+            else if (second != null) {
+                if (nums[i] > second) {
+                    return true;
+                }
+                else {
+                    second = nums[i];
+                }
+            }
+
+            // System.out.println(first + " " + second + " " + last + " " + nums[i]);
+        }
+        return false;
+    }
+}
