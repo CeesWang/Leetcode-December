@@ -1,5 +1,32 @@
 class Solution {
     public int cherryPickup(int[][] grid) {
-        
+        int [][] dp = new int [grid.length][grid[0].length];
+        int cherries = 0;
+        int rowLen = grid.length;
+        int colLen = grid[0].length;
+        for (int i = 0; i < colLen; ++i) {  // initialize first row
+            dp[0][i] = grid[0][i];
+        }
+        for (int row = 1; row < rowLen; ++row) {
+            for (int col = 0; col < colLen; ++col) {
+                if (col == 0) {
+                    dp[row][col] = Math.max(dp[row -1][col], dp[row - 1][col + 1]) + grid[row][col];        
+                }
+                else if (col == colLen - 1) {
+                    dp[row][col] = Math.max(dp[row -1][col], dp[row - 1][col - 1]) + grid[row][col];        
+                }
+                else {
+                    dp[row][col] = Math.max(dp[row -1][col], dp[row - 1][col + 1]);
+                    dp[row][col] = Math.max(dp[row][col], dp[row - 1][col -1]) + grid[row][col];
+                }
+            }
+        }
+        // for (int row = 0; row < rowLen; ++row) {
+        //     for (int col = 0; col < colLen; ++col) {
+        //         System.out.print(dp[row][col] + " ");
+        //     }
+        //     System.out.println();
+        // }
+        return cherries;
     }
 }
