@@ -1,20 +1,29 @@
 class Solution {
     public String decodeAtIndex(String S, int K) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : S.toCharArray()) {
-            if (Character.isLetter(c)) {
-                sb.append(c);
+        long size = 0;
+        for (int i = 0; i < S.length(); ++i) {
+            char c = S.charAt(i);
+            if (Character.isDigit(c)) {
+                size *= c - '0';
             }
             else {
-                String s = sb.toString();
-                for (int i = 0; i < (c - '0') - 1; ++i) {
-                    sb.append(s);
-                }
-            }
-            if (sb.length() >= K) {
-                return Character.toString(sb.charAt(K - 1)); 
+                size++;
             }
         }
-        return Character.toString(sb.charAt(K - 1));
+        
+        for(int i = S.length() - 1; i >= 0; i--) {
+			char c = S.charAt(i);
+			K %= size;
+			if((K == 0 || K == size) && Character.isLetter(c)){
+				return Character.toString(c);
+			}
+			if(Character.isDigit(c)){
+				size = size / (c-'0');
+			}
+			else {
+				size--;
+			}
+		}
+        return null;
     }
-}Decoded String at Index
+}
