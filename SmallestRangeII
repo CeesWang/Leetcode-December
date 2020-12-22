@@ -33,3 +33,19 @@ class Solution {
 //  
 // 7 7 8    7.33333
 // 12 12 13  
+
+class Solution {
+    public int smallestRangeII(int[] A, int K) {
+        Arrays.sort(A);
+        int len = A.length;
+        int ans = A[len -1] - A[0];
+        int begin = A[0] + K;
+        int end = A[len - 1] - K;
+        for (int i = 0; i < len - 1; ++i) {
+            int max = Math.max(end, A[i] + K);
+            int min = Math.min(begin, A[i + 1] - K);
+            ans = Math.min(ans, max - min);
+        }
+        return ans;
+    }
+}
