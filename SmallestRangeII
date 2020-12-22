@@ -1,0 +1,6 @@
+class Solution {
+    public int smallestRangeII(int[] A, int K) {
+        int diff = Integer.MAX_VALUE;
+        return diff;
+    }
+}
