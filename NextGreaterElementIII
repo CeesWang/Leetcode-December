@@ -32,3 +32,45 @@ class Solution {
         
     
 }
+
+class Solution {
+    public int nextGreaterElement(int n) {
+        char [] numArr = Integer.toString(n).toCharArray();
+        int len = numArr.length;
+        int idx = len - 2;
+        while(idx >= 0) {
+            if (numArr[idx + 1] > numArr[idx]) {
+                break;        
+            }
+            idx--;
+        }
+        if (idx == -1) return -1;
+        for (int i = len - 1; i >= idx; --i) {
+            if (numArr[i] > numArr[idx]) {
+                swap(numArr, i, idx);
+                break;
+            }    
+        }
+        int begin = idx + 1;
+        int end = len - 1;
+        while(begin < end) {
+            swap(numArr, begin, end);
+            begin++;
+            end--;
+        }
+        return isGreaterElement(numArr, n) ? Integer.parseInt(new String(numArr)) : - 1;
+    }
+    public void swap (char [] numArr, int i, int j) {
+        char temp = numArr[i];
+        numArr[i] = numArr[j];
+        numArr[j] = temp;
+    }
+    
+    public boolean isGreaterElement(char [] numArr, int n) {
+        long num = Long.parseLong(new String(numArr));
+        return num <= Integer.MAX_VALUE && num > n; 
+    }
+        
+    
+}
+    // 12443322 -> 13443222
