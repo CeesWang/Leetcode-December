@@ -10,6 +10,35 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        
+        ListNode begin = new ListNode(0);
+        ListNode temp = begin;
+        Queue<Integer> oddList = new LinkedList<>();
+        Queue<Integer> evenList = new LinkedList<>();
+        boolean isOdd = false;
+        while (head != null) {
+            if (isOdd) {
+                evenList.add(head.val);
+            }
+            else {
+                oddList.add(head.val);
+            }
+            isOdd = !isOdd;
+            head = head.next;
+        }
+        while(!evenList.isEmpty() && !oddList.isEmpty() ) {
+            temp.next = new ListNode(evenList.poll());
+            temp = temp.next;
+            temp.next = new ListNode(oddList.poll());
+            temp = temp.next;
+        }
+        while(!evenList.isEmpty()) {
+            temp.next = new ListNode(evenList.poll());
+            temp = temp.next;
+        }
+        while(!oddList.isEmpty()) {
+            temp.next = new ListNode(oddList.poll());
+            temp = temp.next;
+        }
+        return begin.next;
     }
 }
