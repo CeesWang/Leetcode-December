@@ -1,5 +1,45 @@
 class Solution {
     public int minJumps(int[] arr) {
-        
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        int len = arr.length;
+        int [] min = new int [] { len - 1};
+        boolean [] visited = new boolean[len];
+        for (int i = 0; i < len; ++i) {
+            if(map.containsKey(arr[i])) {
+                map.get(arr[i]).add(i);
+            }
+            else {
+                ArrayList<Integer> al = new ArrayList<>();
+                al.add(i);
+                map.put(arr[i], al);
+            }
+        }
+        dfs(arr, map, min, 0, 0, visited);
+        return min[0];
+    }
+    
+    public void dfs(int [] arr, HashMap<Integer, ArrayList<Integer>> map, int [] min, int idx, int steps, boolean [] visited) {
+        if (visited[idx]) {
+            return;
+        }
+        if (idx == arr.length - 1) {
+            min[0] = Math.min(min[0], steps);
+            return;
+        }
+        visited[idx] = true;
+        ArrayList<Integer> list = map.get(arr[idx]);
+        for (Integer num : list) {
+            if (idx != num) {
+                dfs(arr, map, min, num, steps + 1, visited);
+            }
+        }
+        if (idx + 1 < arr.length) {
+            dfs(arr, map, min, idx + 1, steps + 1, visited);
+        }
+        if (idx - 1 >= 0) {
+            dfs(arr, map, min, idx - 1, steps + 1, visited);
+        }
+        visited[idx] = false;
     }
 }
+//[100,-23,-23,404,100,23,23,23,3,404]
