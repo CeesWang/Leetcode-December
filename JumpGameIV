@@ -19,7 +19,7 @@ class Solution {
     }
     
     public void dfs(int [] arr, HashMap<Integer, ArrayList<Integer>> map, int [] min, int idx, int steps, boolean [] visited) {
-        if (visited[idx]) {
+        if (visited[idx] || steps >= min[0]) {
             return;
         }
         if (idx == arr.length - 1) {
