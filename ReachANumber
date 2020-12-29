@@ -16,3 +16,19 @@ class Solution {
         return moves;
     }    
 }
+
+class Solution {
+    public int reachNumber(int target) {
+        target = Math.abs(target);
+        int sum = 0;
+        int steps = 0;
+        while (sum < target) {
+            steps++;
+            sum += steps;
+        }
+        if (sum == target) return steps;
+        int diff = sum - target;
+        if (diff % 2 == 0) return steps;
+        return (steps + 1) % 2 == 0 ? steps + 2 : steps + 1;
+    }    
+}
